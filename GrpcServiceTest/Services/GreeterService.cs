@@ -17,7 +17,7 @@ namespace GrpcServiceTest
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
-            Console.WriteLine("request.name {0}", request.Name);
+            //Console.WriteLine("request.name {0}", request.Name);
             return Task.FromResult(new HelloReply { Message = "Hello " + request.Name }) ;
         }
     }
