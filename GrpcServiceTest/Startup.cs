@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace GrpcServiceTest
@@ -27,6 +28,21 @@ namespace GrpcServiceTest
                        .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
             }));
 
+            /*
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(60);
+                options.ExcludedHosts.Add("www.skp-instructor.sbs");
+                options.ExcludedHosts.Add("skp-instructor.sbs");
+            });
+            */
+            services.AddHttpsRedirection(options =>
+            {
+                //options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+                options.HttpsPort = 5001;
+            });
 
             /*
             services.AddCors(o =>
@@ -56,6 +72,13 @@ namespace GrpcServiceTest
             {
                 app.UseDeveloperExceptionPage();
             }
+           else
+            {
+                app.UseExceptionHandler("/Error");
+                //app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
 
             /*
 
