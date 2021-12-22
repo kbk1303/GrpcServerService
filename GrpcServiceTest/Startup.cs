@@ -105,6 +105,7 @@ namespace GrpcServiceTest
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<GreeterService>().EnableGrpcWeb();
+                endpoints.MapGrpcService<TransferService>().EnableGrpcWeb();
             });
         }
     }

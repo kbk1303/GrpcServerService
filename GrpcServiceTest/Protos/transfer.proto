@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServiceTest";
+
+import "google/protobuf/timestamp.proto";
+
+package transfer;
+
+service Transfer {
+	rpc TransferData(TransferRequest) returns (TransferResponse);
+	rpc FetchVideo(stream VideoRequest) returns (stream VideoResponse);
+}
+
+message VideoRequest {
+	int32 videoId = 1;
+	bool alive = 2;
+}
+
+message VideoResponse {
+	bytes buffer = 1;
+	google.protobuf.Timestamp timestamp = 2;
+	string base64String = 3;
+}
+
+message TransferRequest {
+	string userName = 1;
+	string password = 2;
+}
+
+message TransferResponse {
+	bool loggedIn = 1;
+	string userId = 2;
+}
